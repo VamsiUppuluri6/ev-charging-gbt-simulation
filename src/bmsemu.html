@@ -1,0 +1,159 @@
+
+<html>
+
+<head>
+
+</head>
+
+
+
+
+
+<body>
+  <div class="slidecontainer">
+    <input type="range" min="1" max="100" value="50" class="slider" id="myRange" >
+    <input type="text" id="textInput" value="50">
+  </div>
+  
+    <button id="start charging" onclick="send_start();">connect charger</button>
+    <button id="stop charging" onclick="send_stop();">stop bms</button>
+<script>
+  
+const url = 'ws://127.0.0.1:9988';
+const connection = new WebSocket(url)
+
+connection.onopen = () => {
+   
+}
+function send_start(){
+    connection.send(JSON.stringify({name:'StartCharger'}));
+}
+function send_stop(){
+    connection.send(JSON.stringify({name:'StopCharger'}));
+}
+
+
+
+
+function rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
+var slider = document.getElementById("myRange");
+//var output = document.getElementById("demo");
+//output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+ // output.innerHTML = this.value;
+  document.getElementById('textInput').value=slider.value;
+  connection.send(JSON.stringify({name:'soc',data:slider.value}));
+
+}
+
+
+
+
+
+document.onkeydown = checkKeycode
+    function checkKeycode(e) {
+        var keycode;
+        if (window.event)
+            keycode = window.event.keyCode;
+        else if (e)
+            keycode = e.which;
+
+        // Mozilla firefox
+    //    if ($.browser.mozilla) {
+            if (keycode == 116 ||(e.ctrlKey && keycode == 82)) {
+                if (e.preventDefault)
+                {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+  //          }
+        } 
+        // IE
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//var bmschr=document.getElementById("bmschr");
+var can=document.createElement('canvas');
+document.body.append(can);
+var ctx=can.getContext('2d')
+var w = can.width;
+  var h = can.height;
+  function drawBattery(percent) {
+    ctx.clearRect(0, 0, w,h); 
+      ctx.beginPath();
+
+    
+      ctx.arc(35,50, 25,0,rad(360));
+      ctx.moveTo(35+percent+25,50);
+      ctx.arc(35+percent,50,25,0,rad(360));
+      ctx.stroke();
+    
+      ctx.beginPath();
+      ctx.fillStyle = "rgba(0,255,0,.5)";
+      ctx.arc(35,50,25,0,rad(360));
+      ctx.arc(35+percent,50,25,0,rad(360));
+      ctx.rect(35,25,percent,50);
+      ctx.fill();
+          
+      ctx.beginPath();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#666666";
+      ctx.moveTo(135,25);
+      ctx.arc(135,50,25, rad(270), rad(269.9999));
+      //ctx.moveTo(35,75);
+      ctx.arc(35,50,25,rad(270),rad(90), true);
+      ctx.strokeText("SOC:"+percent.toString(),35,95,95)
+      ctx.lineTo(135,75);
+      ctx.stroke();
+      //ctx.rotate(rad(90))
+  }
+ 
+
+
+
+connection.onerror = (error) => {
+  console.log(`WebSocket error: ${error}`);
+}
+var br=document.createElement("br");
+var charger=document.createElement("iframe");
+charger.setAttribute("src","http://127.0.0.1:8000/charger");
+var chrlog=document.createElement("iframe");
+chrlog.setAttribute("src","http://127.0.0.1:8083/logdisp.html");
+chrlog.width=1000;
+chrlog.height=1000;
+
+
+
+connection.onmessage = (e) => {
+  var jsonobj=JSON.parse(e.data);
+   if(jsonobj.name=="count"){
+      if(jsonobj.data>=1){
+       document.body.innerHTML = "Already in use charger";
+
+      }else{
+      document.body.appendChild(charger);
+      document.body.appendChild(br);
+      document.body.appendChild(chrlog);
+      }
+   }
+  console.log(e.data);
+}
+</script>
+</body>
+</html>

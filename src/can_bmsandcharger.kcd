@@ -1,0 +1,144 @@
+<NetworkDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="Definition.xsd"
+ version="0.3">
+    
+	<Bus name="Charger" baudrate="500000">
+    <Message id="0x1826f456" name="CHM" format="extended" interval="250">
+    <Signal name="ProtocolId" offset="0" length="16" endianess="little"/>
+    <Signal name="Publicid" offset="16" length="8" endianess="little"/>
+    <Signal name="Trunkate" offset="24" length="40" endianess="little"/>
+    </Message>
+    <Message id="0x1801f456" name="CRM" format="extended"  interval="250">
+    <Signal name="BmsRec" offset="0" length="8" endianess="little"/>
+    <Signal name="ChargerNum" offset="8" length="32" endianess="little"/>
+    <Signal name="ChargerLocation" offset="40" length="24" endianess="little"/>
+    </Message>
+    
+    <Message id="0x1807f456" name="CTS" format="extended"  interval="500">
+    <Signal name="Year" offset="0" length="16" endianess="little"/>
+    <Signal name="Month" offset="16" length="8" endianess="little"/>
+    <Signal name="Day" offset="24" length="8" endianess="little"/>
+    <Signal name="Hour" offset="32" length="8" endianess="little"/>
+    <Signal name="Minute" offset="40" length="8" endianess="little"/>
+    <Signal name="Second" offset="48" length="8" endianess="little"/>
+    <Signal name="Resev" offset="56" length="16" endianess="little"/>
+    </Message>
+
+    <Message id="0x1808f456" name="CML" format="extended"  interval="250">
+    <Signal name="Maxvolt" offset="0" length="16" endianess="little"/>
+    <Signal name="Minvolt" offset="16" length="16" endianess="little"/>
+    <Signal name="Maxcurr" offset="32" length="16" endianess="little"/>
+    <Signal name="Mincurr" offset="48" length="16" endianess="little"/>
+    </Message>
+    <Message id="0x1812f456" name="CCS" format="extended"  interval="50">
+    <Signal name="Voltopv" offset="0" length="16" endianess="little"/>
+    <Signal name="Currenopv" offset="16" length="16" endianess="little"/>
+    <Signal name="CCtime" offset="32" length="16" endianess="little"/>
+    <Signal name="CCpermis" offset="48" length="2" endianess="little"/>
+    <Signal name="CCRes" offset="56" length="8" endianess="little"/>
+    </Message>
+    <Message id="0x100af456" name="CRO" format="extended"    interval="10">
+    <Signal name="Chargerready" offset="0" length="8" endianess="little"/>
+    <Signal name="Trunkate" offset="8" length="56" endianess="little"/>
+    </Message>
+    <Message id="0x1cecf456" name="CRS" format="extended"   interval="250">
+	       <Signal name="Clearsend" offset="0" length="8" endianess="little"/>
+           <Signal name="Cleardata" offset="8" length="24" endianess="little"/>
+           <Signal name="Clearpgn" offset="40" length="24" endianess="little"/>
+    </Message>
+   <Message id="0x101af456" name="CST" format="extended"    interval="250">
+    <Signal name="Cscause" offset="0" length="8" endianess="little"/>
+    <Signal name="Csfault" offset="8" length="16" endianess="little"/>
+    <Signal name="Cserror" offset="24" length="16" endianess="little"/>
+    <Signal name="Csres" offset="32" length="32" endianess="little"/>
+    </Message>
+   <Message id="0x181df456" name="CSD" format="extended"    interval="250">
+    <Signal name="Cscct" offset="0" length="16" endianess="little"/>
+    <Signal name="Csoe" offset="16" length="16" endianess="little"/>
+    <Signal name="Csno" offset="32" length="32" endianess="little"/>
+    
+    </Message>
+ 
+
+
+
+
+
+  </Bus>
+<Bus name="BMS" baudrate="500000">
+    <Message id="0x182756f4" name="BHM" format="extended"   interval="250">
+    <Signal name="ChargingVoltage" offset="0" length="16" endianess="little"/>
+    <Signal name="Truncate" offset="16" length="48" endianess="little"/>
+    </Message>
+
+    <Message id="0x1cec56f4" name="BRM" format="extended" interval="250">
+    <Signal name="BmsReq" offset="0" length="8" endianess="little"/>
+    <Signal name="BmsReqlen" offset="8" length="16" endianess="little"/>
+    <Signal name="BmsReqpac" offset="24" length="8" endianess="little"/>
+    <Signal name="BmsReqpac1" offset="32" length="8" endianess="little"/>
+    <Signal name="BmsReqpgn" offset="40" length="24" endianess="little"/>
+    </Message>
+
+    <Message id="0x1ceb56f4" name="BRMBCPBCS" format="extended" interval="150">
+        <Signal name="BrPackCount" offset="0" length="8" endianess="little"/>
+        <Signal name="BrPac1" offset="8" length="8" endianess="little"/>
+        <Signal name="BrPac2" offset="16" length="8" endianess="little"/>
+        <Signal name="BrPac3" offset="24" length="8" endianess="little"/>
+        <Signal name="BrPac4" offset="32" length="8" endianess="little"/>
+        <Signal name="BrPac5" offset="40" length="8" endianess="little"/>
+        <Signal name="BrPac6" offset="48" length="8" endianess="little"/>
+        <Signal name="BrPac7" offset="56" length="8" endianess="little"/>
+
+
+    </Message>
+
+    <Message id="0x100956f4" name="BRO" format="extended"    interval="10">
+    <Signal name="Broready" offset="0" length="8" endianess="little"/>
+     <Signal name="Broter" offset="8" length="56" endianess="little"/>
+    </Message>
+
+    <Message id="0x181056f4" name="BCDM" format="extended"   interval="50">
+    <Signal name="Bcdvoltdem" offset="0" length="16" endianess="little"/>
+    <Signal name="Bcdcurrdem" offset="16" length="16" endianess="little"/>
+    <Signal name="Bcdconst" offset="32" length="8" endianess="little"/>
+    <Signal name="Bcdres" offset="40" length="24" endianess="little"/>
+    </Message>
+    <Message id="0x181356f4" name="BSIM" format="extended"  interval="250">
+    <Signal name="BsimSN" offset="0" length="8" endianess="little"/>
+    <Signal name="Bsimhtemp" offset="8" length="8" endianess="little"/>
+    <Signal name="BsimhtempSN" offset="16" length="8" endianess="little"/>
+    <Signal name="Bsimltemp" offset="24" length="8" endianess="little"/>
+    <Signal name="BsimltempSN" offset="32" length="8" endianess="little"/>
+    <Signal name="Bsimspsb" offset="40" length="2" endianess="little"/>
+    <Signal name="Bsimspsoc" offset="42" length="2" endianess="little"/>
+    <Signal name="Bsimovercurr" offset="45" length="2" endianess="little"/>
+    <Signal name="Bsimexcess" offset="47" length="2" endianess="little"/>
+    <Signal name="Bsiminsulat" offset="49" length="2" endianess="little"/>
+    <Signal name="Bsimconnect" offset="51" length="2" endianess="little"/>
+    <Signal name="Bsimchper" offset="53" length="2" endianess="little"/>
+    </Message>
+
+    <Message id="0x101956f4" name="BST" format="extended"  interval="250">
+    <Signal name="BsCause" offset="0" length="32" endianess="little"/>
+    <Signal name="Bsres" offset="32" length="32" endianess="little"/>
+    </Message>
+     
+    <Message id="0x181c56f4" name="BSD" format="extended"  interval="250">
+    <Signal name="BsSOC" offset="0" length="8" endianess="little"/>
+    <Signal name="BsComb" offset="8" length="56" endianess="little"/>
+    </Message>
+
+
+
+
+
+
+
+
+
+
+    
+    </Bus>
+</NetworkDefinition>
+
+
